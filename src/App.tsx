@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { AppState } from './types';
 import { storage } from './utils/storage';
 import { GATE_DA, GATE_CS } from './data/gateTopics';
+import { DarkModeProvider } from './contexts/DarkModeContext';
 import Header from './components/Header';
 import ExamSelector from './components/ExamSelector';
 import SubjectList from './components/SubjectList';
@@ -144,20 +145,24 @@ function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
-      </div>
+      <DarkModeProvider>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 dark:border-blue-400"></div>
+        </div>
+      </DarkModeProvider>
     );
   }
 
   if (!appState) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Error Loading App</h1>
-          <p className="text-gray-600">Please refresh the page and try again.</p>
+      <DarkModeProvider>
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Error Loading App</h1>
+            <p className="text-gray-600 dark:text-gray-400">Please refresh the page and try again.</p>
+          </div>
         </div>
-      </div>
+      </DarkModeProvider>
     );
   }
 
@@ -169,41 +174,43 @@ function App() {
     : currentExam.subjects;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Header 
-        currentExam={appState.currentExam}
-        onSwitchExam={switchExam}
-        examData={currentExam}
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-1">
-            <ExamSelector 
-              currentExam={appState.currentExam}
-              onSwitchExam={switchExam}
-              gateDA={appState.gateDA}
-              gateCS={appState.gateCS}
-            />
-            <SubjectList 
-              subjects={currentExam.subjects}
-              examId={appState.currentExam === 'GATE DA' ? 'gateDA' : 'gateCS'}
-              selectedSubject={selectedSubject}
-              onSubjectClick={handleSubjectClick}
-            />
-          </div>
-          
-          <div className="lg:col-span-2">
-            <TopicList 
-              subjects={filteredSubjects}
-              examId={appState.currentExam === 'GATE DA' ? 'gateDA' : 'gateCS'}
-              onToggleTopic={toggleTopicCompletion}
-              onToggleRevision={toggleRevision}
-            />
+    <DarkModeProvider>
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+        <Header 
+          currentExam={appState.currentExam}
+          onSwitchExam={switchExam}
+          examData={currentExam}
+        />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-1">
+              <ExamSelector 
+                currentExam={appState.currentExam}
+                onSwitchExam={switchExam}
+                gateDA={appState.gateDA}
+                gateCS={appState.gateCS}
+              />
+              <SubjectList 
+                subjects={currentExam.subjects}
+                examId={appState.currentExam === 'GATE DA' ? 'gateDA' : 'gateCS'}
+                selectedSubject={selectedSubject}
+                onSubjectClick={handleSubjectClick}
+              />
+            </div>
+            
+            <div className="lg:col-span-2">
+              <TopicList 
+                subjects={filteredSubjects}
+                examId={appState.currentExam === 'GATE DA' ? 'gateDA' : 'gateCS'}
+                onToggleTopic={toggleTopicCompletion}
+                onToggleRevision={toggleRevision}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </DarkModeProvider>
   );
 }
 
