@@ -17,16 +17,16 @@ interface DashboardProps {
 }
 
 const Dashboard: React.FC<DashboardProps> = ({ appState }) => {
-  const { user, subjects, topics, studySessions, goals, progressStats } = appState;
+  const { user, subjects, topics, studySessions, goals } = appState;
 
-  const totalTopics = topics.length;
-  const completedTopics = topics.filter(topic => topic.status === 'Completed').length;
-  const inProgressTopics = topics.filter(topic => topic.status === 'In Progress').length;
+  const totalTopics = (topics || []).length;
+  const completedTopics = (topics || []).filter(topic => topic.status === 'Completed').length;
+  const inProgressTopics = (topics || []).filter(topic => topic.status === 'In Progress').length;
   
-  const totalStudyTime = getTotalStudyTime(studySessions);
-  const currentStreak = calculateStreak(studySessions);
+  const totalStudyTime = getTotalStudyTime(studySessions || []);
+  const currentStreak = calculateStreak(studySessions || []);
   
-  const todaySessions = studySessions.filter(session => {
+  const todaySessions = (studySessions || []).filter(session => {
     const sessionDate = new Date(session.startTime);
     const today = new Date();
     return sessionDate.toDateString() === today.toDateString();
@@ -34,8 +34,7 @@ const Dashboard: React.FC<DashboardProps> = ({ appState }) => {
   
   const todayStudyTime = todaySessions.reduce((total, session) => total + session.duration, 0);
   
-  const activeGoals = goals.filter(goal => !goal.completed);
-  const completedGoals = goals.filter(goal => goal.completed);
+  const activeGoals = (goals || []).filter(goal => !goal.completed);
 
   const stats = [
     {
@@ -68,9 +67,9 @@ const Dashboard: React.FC<DashboardProps> = ({ appState }) => {
     }
   ];
 
-  const recentSubjects = subjects
+  const recentSubjects = (subjects || [])
     .map(subject => {
-      const subjectTopics = topics.filter(topic => topic.subjectId === subject.id);
+      const subjectTopics = (topics || []).filter(topic => topic.subjectId === subject.id);
       const completed = subjectTopics.filter(topic => topic.status === 'Completed').length;
       const progress = getProgressPercentage(completed, subjectTopics.length);
       
@@ -85,7 +84,7 @@ const Dashboard: React.FC<DashboardProps> = ({ appState }) => {
       <div>
         <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
         <p className="mt-2 text-gray-600">
-          Welcome back, {user.name}! Here's your GATE preparation overview.
+          Welcome back, {user?.name || 'Student'}! Here's your GATE preparation overview.
         </p>
       </div>
 
@@ -118,13 +117,13 @@ const Dashboard: React.FC<DashboardProps> = ({ appState }) => {
             <div>
               <div className="flex justify-between text-sm text-gray-600 mb-1">
                 <span>Study Time</span>
-                <span>{formatDuration(todayStudyTime)} / {user.studyGoal}h</span>
+                <span>{formatDuration(todayStudyTime)} / {user?.studyGoal || 0}h</span>
               </div>
               <div className="progress-bar">
                 <div 
                   className="progress-fill bg-primary-600"
                   style={{ 
-                    width: `${Math.min((todayStudyTime / (user.studyGoal * 60)) * 100, 100)}%` 
+                    width: `${Math.min((todayStudyTime / ((user?.studyGoal || 1) * 60)) * 100, 100)}%` 
                   }}
                 />
               </div>
@@ -160,7 +159,7 @@ const Dashboard: React.FC<DashboardProps> = ({ appState }) => {
                   <div className="w-16 progress-bar mt-1">
                     <div 
                       className="progress-fill bg-primary-600"
-                      style={{ width: `${(goal.currentValue / goal.targetValue) * 100}%` }}
+                      style={{ width: `${((goal.currentValue || 0) / (goal.targetValue || 1)) * 100}%` }}
                     />
                   </div>
                 </div>

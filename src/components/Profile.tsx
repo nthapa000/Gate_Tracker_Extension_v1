@@ -198,7 +198,7 @@ const Profile: React.FC<ProfileProps> = ({ user, updateAppState }) => {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-900">Member Since</p>
-                  <p className="text-sm text-gray-500">{formatDate(user.createdAt)}</p>
+                  <p className="text-sm text-gray-500">{user.createdAt ? formatDate(user.createdAt) : 'Unknown'}</p>
                 </div>
               </div>
 

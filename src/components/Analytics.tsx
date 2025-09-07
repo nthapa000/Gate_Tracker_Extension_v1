@@ -1,5 +1,5 @@
 import React from 'react';
-import { BarChart3, TrendingUp, Clock, BookOpen, Target, Calendar } from 'lucide-react';
+import { BarChart3, TrendingUp, Clock, BookOpen, Target } from 'lucide-react';
 import { AppState } from '../types';
 import { formatDuration, calculateStreak, getTotalStudyTime } from '../utils/helpers';
 
@@ -8,20 +8,18 @@ interface AnalyticsProps {
 }
 
 const Analytics: React.FC<AnalyticsProps> = ({ appState }) => {
-  const { subjects, topics, studySessions, goals, progressStats } = appState;
+  const { subjects, topics, studySessions, goals } = appState;
 
-  const totalStudyTime = getTotalStudyTime(studySessions);
-  const currentStreak = calculateStreak(studySessions);
+  const totalStudyTime = getTotalStudyTime(studySessions || []);
+  const currentStreak = calculateStreak(studySessions || []);
   
-  const completedTopics = topics.filter(topic => topic.status === 'Completed').length;
-  const inProgressTopics = topics.filter(topic => topic.status === 'In Progress').length;
+  const completedTopics = (topics || []).filter(topic => topic.status === 'Completed').length;
   
-  const activeGoals = goals.filter(goal => !goal.completed);
-  const completedGoals = goals.filter(goal => goal.completed);
+  const completedGoals = (goals || []).filter(goal => goal.completed);
 
   // Calculate study time by subject
-  const studyTimeBySubject = subjects.map(subject => {
-    const subjectSessions = studySessions.filter(session => session.subjectId === subject.id);
+  const studyTimeBySubject = (subjects || []).map(subject => {
+    const subjectSessions = (studySessions || []).filter(session => session.subjectId === subject.id);
     const totalTime = subjectSessions.reduce((total, session) => total + session.duration, 0);
     return {
       name: subject.name,
@@ -38,7 +36,7 @@ const Analytics: React.FC<AnalyticsProps> = ({ appState }) => {
   }).reverse();
 
   const studyTimeByDay = last7Days.map(date => {
-    const daySessions = studySessions.filter(session => {
+    const daySessions = (studySessions || []).filter(session => {
       const sessionDate = new Date(session.startTime);
       return sessionDate.toDateString() === date.toDateString();
     });
@@ -182,8 +180,8 @@ const Analytics: React.FC<AnalyticsProps> = ({ appState }) => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Topic Progress Overview</h3>
         
         <div className="space-y-4">
-          {subjects.map(subject => {
-            const subjectTopics = topics.filter(topic => topic.subjectId === subject.id);
+          {(subjects || []).map(subject => {
+            const subjectTopics = (topics || []).filter(topic => topic.subjectId === subject.id);
             const completed = subjectTopics.filter(topic => topic.status === 'Completed').length;
             const inProgress = subjectTopics.filter(topic => topic.status === 'In Progress').length;
             const notStarted = subjectTopics.filter(topic => topic.status === 'Not Started').length;
@@ -225,12 +223,12 @@ const Analytics: React.FC<AnalyticsProps> = ({ appState }) => {
       </div>
 
       {/* Goals Progress */}
-      {goals.length > 0 && (
+      {(goals || []).length > 0 && (
         <div className="card">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Goals Progress</h3>
           
           <div className="space-y-4">
-            {goals.map(goal => (
+            {(goals || []).map(goal => (
               <div key={goal.id} className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">
@@ -251,7 +249,7 @@ const Analytics: React.FC<AnalyticsProps> = ({ appState }) => {
                     <div className="w-24 progress-bar mt-1">
                       <div 
                         className={`progress-fill ${goal.completed ? 'bg-green-600' : 'bg-primary-600'}`}
-                        style={{ width: `${(goal.currentValue / goal.targetValue) * 100}%` }}
+                        style={{ width: `${((goal.currentValue || 0) / (goal.targetValue || 1)) * 100}%` }}
                       />
                     </div>
                   </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { AppState } from './types';
 import { storage } from './utils/storage';
 import { GATE_DA, GATE_CS } from './data/gateTopics';

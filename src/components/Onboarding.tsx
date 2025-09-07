@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, BookOpen, Target, Calendar } from 'lucide-react';
+import { ArrowRight, BookOpen, Calendar } from 'lucide-react';
 import { UserProfile } from '../types';
 
 interface OnboardingProps {
@@ -28,7 +28,10 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
     if (step < 3) {
       setStep(step + 1);
     } else {
-      onComplete(formData);
+      onComplete({
+        ...formData,
+        examDate: formData.examDate ? new Date(formData.examDate) : undefined
+      });
     }
   };
 
@@ -43,7 +46,7 @@ const Onboarding: React.FC<OnboardingProps> = ({ onComplete }) => {
       case 1:
         return formData.name.trim() !== '' && formData.email.trim() !== '';
       case 2:
-        return formData.targetExam !== '';
+        return formData.targetExam === 'GATE DA' || formData.targetExam === 'GATE CS';
       case 3:
         return formData.studyGoal > 0;
       default:

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BookOpen, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { Exam } from '../types';
 
 interface ExamSelectorProps {

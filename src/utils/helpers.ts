@@ -1,4 +1,4 @@
-import { format, differenceInDays, differenceInHours, differenceInMinutes, startOfDay, endOfDay } from 'date-fns';
+import { format, differenceInDays, differenceInHours, differenceInMinutes, startOfDay } from 'date-fns';
 
 export const formatDuration = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
@@ -130,7 +130,7 @@ export const debounce = <T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): ((...args: Parameters<T>) => void) => {
-  let timeout: NodeJS.Timeout;
+  let timeout: number;
   return (...args: Parameters<T>) => {
     clearTimeout(timeout);
     timeout = setTimeout(() => func(...args), wait);

@@ -69,16 +69,16 @@ const PracticeTests: React.FC<PracticeTestsProps> = ({ practiceTests, subjects }
                   <div className="flex items-center space-x-3">
                     <div 
                       className="w-10 h-10 rounded-lg flex items-center justify-center"
-                      style={{ backgroundColor: `${getSubjectColor(test.subjectId)}20` }}
+                      style={{ backgroundColor: `${getSubjectColor(test.subject.id)}20` }}
                     >
                       <FileText 
                         className="h-5 w-5" 
-                        style={{ color: getSubjectColor(test.subjectId) }}
+                        style={{ color: getSubjectColor(test.subject.id) }}
                       />
                     </div>
                     <div>
                       <h3 className="font-semibold text-gray-900">{test.name}</h3>
-                      <p className="text-sm text-gray-500">{getSubjectName(test.subjectId)}</p>
+                      <p className="text-sm text-gray-500">{getSubjectName(test.subject.id)}</p>
                     </div>
                   </div>
                   

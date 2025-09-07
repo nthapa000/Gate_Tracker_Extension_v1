@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, Clock, BookOpen, CheckCircle, Play } from 'lucide-react';
+import { Search, Clock, BookOpen, Play } from 'lucide-react';
 import { Subject, Topic } from '../types';
 import { getDifficultyColor, getStatusColor } from '../utils/helpers';
 
@@ -9,7 +9,7 @@ interface TopicsProps {
   updateAppState: (updates: Partial<any>) => void;
 }
 
-const Topics: React.FC<TopicsProps> = ({ subjects, topics, updateAppState }) => {
+const Topics: React.FC<TopicsProps> = ({ subjects, topics }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState('all');
@@ -17,7 +17,7 @@ const Topics: React.FC<TopicsProps> = ({ subjects, topics, updateAppState }) => 
 
   const filteredTopics = topics.filter(topic => {
     const matchesSearch = topic.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         topic.description.toLowerCase().includes(searchTerm.toLowerCase());
+                          (topic.description || '').toLowerCase().includes(searchTerm.toLowerCase());
     const matchesSubject = selectedSubject === 'all' || topic.subjectId === selectedSubject;
     const matchesDifficulty = selectedDifficulty === 'all' || topic.difficulty === selectedDifficulty;
     const matchesStatus = selectedStatus === 'all' || topic.status === selectedStatus;
@@ -101,13 +101,13 @@ const Topics: React.FC<TopicsProps> = ({ subjects, topics, updateAppState }) => 
                 <div className="flex items-center space-x-3 mb-2">
                   <div 
                     className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: getSubjectColor(topic.subjectId) }}
+                    style={{ backgroundColor: getSubjectColor(topic.subjectId || '') }}
                   />
-                  <span className="text-sm text-gray-500">{getSubjectName(topic.subjectId)}</span>
+                  <span className="text-sm text-gray-500">{getSubjectName(topic.subjectId || '')}</span>
                 </div>
                 
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">{topic.name}</h3>
-                <p className="text-gray-600 mb-4">{topic.description}</p>
+                <p className="text-gray-600 mb-4">{topic.description || ''}</p>
                 
                 <div className="flex items-center space-x-4 text-sm text-gray-500">
                   <div className="flex items-center space-x-1">
@@ -116,17 +116,17 @@ const Topics: React.FC<TopicsProps> = ({ subjects, topics, updateAppState }) => 
                   </div>
                   <div className="flex items-center space-x-1">
                     <BookOpen className="h-4 w-4" />
-                    <span>{topic.resources.length} resources</span>
+                    <span>{(topic.resources || []).length} resources</span>
                   </div>
                 </div>
               </div>
 
               <div className="flex flex-col items-end space-y-3">
                 <div className="flex space-x-2">
-                  <span className={`badge ${getDifficultyColor(topic.difficulty)}`}>
+                  <span className={`badge ${getDifficultyColor(topic.difficulty || 'Medium')}`}>
                     {topic.difficulty}
                   </span>
-                  <span className={`badge ${getStatusColor(topic.status)}`}>
+                  <span className={`badge ${getStatusColor(topic.status || 'Not Started')}`}>
                     {topic.status}
                   </span>
                 </div>

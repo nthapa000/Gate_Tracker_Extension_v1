@@ -8,7 +8,9 @@ export const GATE_DA_SUBJECTS: Subject[] = [
     description: 'Linear Algebra, Calculus, Probability, Statistics',
     totalTopics: 12,
     completedTopics: 0,
-    color: '#3b82f6'
+    progress: 0,
+    color: '#3b82f6',
+    topics: []
   },
   {
     id: 'da-programming',
@@ -17,7 +19,9 @@ export const GATE_DA_SUBJECTS: Subject[] = [
     description: 'C/C++, Data Structures, Algorithms',
     totalTopics: 15,
     completedTopics: 0,
-    color: '#10b981'
+    progress: 0,
+    color: '#10b981',
+    topics: []
   },
   {
     id: 'da-dbms',
@@ -26,7 +30,9 @@ export const GATE_DA_SUBJECTS: Subject[] = [
     description: 'ER Model, Normalization, SQL, Transactions',
     totalTopics: 10,
     completedTopics: 0,
-    color: '#f59e0b'
+    progress: 0,
+    color: '#f59e0b',
+    topics: []
   },
   {
     id: 'da-ml',
@@ -35,7 +41,9 @@ export const GATE_DA_SUBJECTS: Subject[] = [
     description: 'Supervised Learning, Unsupervised Learning, Neural Networks',
     totalTopics: 18,
     completedTopics: 0,
-    color: '#ef4444'
+    progress: 0,
+    color: '#ef4444',
+    topics: []
   },
   {
     id: 'da-ds',
@@ -44,7 +52,9 @@ export const GATE_DA_SUBJECTS: Subject[] = [
     description: 'Data Preprocessing, Visualization, Big Data',
     totalTopics: 14,
     completedTopics: 0,
-    color: '#8b5cf6'
+    progress: 0,
+    color: '#8b5cf6',
+    topics: []
   }
 ];
 
@@ -56,7 +66,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'Discrete Mathematics, Linear Algebra, Calculus',
     totalTopics: 15,
     completedTopics: 0,
-    color: '#3b82f6'
+    progress: 0,
+    color: '#3b82f6',
+    topics: []
   },
   {
     id: 'cs-ds-algo',
@@ -65,7 +77,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'Arrays, Trees, Graphs, Sorting, Searching',
     totalTopics: 20,
     completedTopics: 0,
-    color: '#10b981'
+    progress: 0,
+    color: '#10b981',
+    topics: []
   },
   {
     id: 'cs-oop',
@@ -74,7 +88,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'C/C++, Object-Oriented Programming',
     totalTopics: 12,
     completedTopics: 0,
-    color: '#f59e0b'
+    progress: 0,
+    color: '#f59e0b',
+    topics: []
   },
   {
     id: 'cs-dbms',
@@ -83,7 +99,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'ER Model, Normalization, SQL, Transactions',
     totalTopics: 10,
     completedTopics: 0,
-    color: '#ef4444'
+    progress: 0,
+    color: '#ef4444',
+    topics: []
   },
   {
     id: 'cs-os',
@@ -92,7 +110,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'Process Management, Memory Management, File Systems',
     totalTopics: 16,
     completedTopics: 0,
-    color: '#8b5cf6'
+    progress: 0,
+    color: '#8b5cf6',
+    topics: []
   },
   {
     id: 'cs-networks',
@@ -101,7 +121,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'OSI Model, TCP/IP, Routing, Security',
     totalTopics: 14,
     completedTopics: 0,
-    color: '#06b6d4'
+    progress: 0,
+    color: '#06b6d4',
+    topics: []
   },
   {
     id: 'cs-compiler',
@@ -110,7 +132,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'Lexical Analysis, Parsing, Code Generation',
     totalTopics: 12,
     completedTopics: 0,
-    color: '#84cc16'
+    progress: 0,
+    color: '#84cc16',
+    topics: []
   },
   {
     id: 'cs-architecture',
@@ -119,7 +143,9 @@ export const GATE_CS_SUBJECTS: Subject[] = [
     description: 'Processor Design, Memory Hierarchy, I/O Systems',
     totalTopics: 18,
     completedTopics: 0,
-    color: '#f97316'
+    progress: 0,
+    color: '#f97316',
+    topics: []
   }
 ];
 
@@ -134,9 +160,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 8,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '1', name: 'Linear Algebra Basics', type: 'Video', completed: false },
-      { id: '2', name: 'Matrix Operations', type: 'Practice', completed: false }
+      'Linear Algebra Basics - Video',
+      'Matrix Operations - Practice'
     ]
   },
   {
@@ -148,9 +176,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 10,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '3', name: 'Calculus Fundamentals', type: 'Video', completed: false },
-      { id: '4', name: 'Integration Techniques', type: 'Practice', completed: false }
+      'Calculus Fundamentals - Video',
+      'Integration Techniques - Practice'
     ]
   },
   {
@@ -162,9 +192,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 12,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '5', name: 'Probability Basics', type: 'Video', completed: false },
-      { id: '6', name: 'Statistical Methods', type: 'Book', completed: false }
+      'Probability Basics - Video',
+      'Statistical Methods - Book'
     ]
   },
   // Programming topics
@@ -177,9 +209,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 6,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '7', name: 'C Programming Basics', type: 'Video', completed: false },
-      { id: '8', name: 'C Practice Problems', type: 'Practice', completed: false }
+      'C Programming Basics - Video',
+      'C Practice Problems - Practice'
     ]
   },
   {
@@ -191,9 +225,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 15,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '9', name: 'Data Structures Course', type: 'Video', completed: false },
-      { id: '10', name: 'DS Implementation', type: 'Practice', completed: false }
+      'Data Structures Course - Video',
+      'DS Implementation - Practice'
     ]
   },
   // Machine Learning topics
@@ -206,9 +242,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 20,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '11', name: 'ML Fundamentals', type: 'Video', completed: false },
-      { id: '12', name: 'Regression Models', type: 'Practice', completed: false }
+      'ML Fundamentals - Video',
+      'Regression Models - Practice'
     ]
   },
   {
@@ -220,9 +258,11 @@ export const GATE_DA_TOPICS: Topic[] = [
     estimatedHours: 18,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '13', name: 'Clustering Algorithms', type: 'Video', completed: false },
-      { id: '14', name: 'PCA Implementation', type: 'Practice', completed: false }
+      'Clustering Algorithms - Video',
+      'PCA Implementation - Practice'
     ]
   }
 ];
@@ -238,9 +278,11 @@ export const GATE_CS_TOPICS: Topic[] = [
     estimatedHours: 12,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '15', name: 'Discrete Math Basics', type: 'Video', completed: false },
-      { id: '16', name: 'Graph Theory', type: 'Book', completed: false }
+      'Discrete Math Basics - Video',
+      'Graph Theory - Book'
     ]
   },
   // Data Structures & Algorithms topics
@@ -253,9 +295,11 @@ export const GATE_CS_TOPICS: Topic[] = [
     estimatedHours: 8,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '17', name: 'Array Fundamentals', type: 'Video', completed: false },
-      { id: '18', name: 'Array Problems', type: 'Practice', completed: false }
+      'Array Fundamentals - Video',
+      'Array Problems - Practice'
     ]
   },
   {
@@ -267,9 +311,11 @@ export const GATE_CS_TOPICS: Topic[] = [
     estimatedHours: 20,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '19', name: 'Tree Data Structures', type: 'Video', completed: false },
-      { id: '20', name: 'Graph Algorithms', type: 'Practice', completed: false }
+      'Tree Data Structures - Video',
+      'Graph Algorithms - Practice'
     ]
   },
   // Operating System topics
@@ -282,9 +328,11 @@ export const GATE_CS_TOPICS: Topic[] = [
     estimatedHours: 15,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '21', name: 'Process Concepts', type: 'Video', completed: false },
-      { id: '22', name: 'Scheduling Algorithms', type: 'Practice', completed: false }
+      'Process Concepts - Video',
+      'Scheduling Algorithms - Practice'
     ]
   },
   {
@@ -296,9 +344,11 @@ export const GATE_CS_TOPICS: Topic[] = [
     estimatedHours: 12,
     status: 'Not Started',
     progress: 0,
+    completed: false,
+    revised: false,
     resources: [
-      { id: '23', name: 'Memory Concepts', type: 'Video', completed: false },
-      { id: '24', name: 'Virtual Memory', type: 'Book', completed: false }
+      'Memory Concepts - Video',
+      'Virtual Memory - Book'
     ]
   }
 ];

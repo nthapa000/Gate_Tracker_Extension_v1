@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, Square, Clock, BookOpen } from 'lucide-react';
+import { Play, Pause, Square } from 'lucide-react';
 import { Subject, Topic, StudySession } from '../types';
 import { generateId, formatDuration } from '../utils/helpers';
 
@@ -29,7 +29,7 @@ const StudySessionComponent: React.FC<StudySessionProps> = ({
     : [];
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: number;
     
     if (isActive && startTime) {
       interval = setInterval(() => {
@@ -66,7 +66,8 @@ const StudySessionComponent: React.FC<StudySessionProps> = ({
       endTime,
       duration,
       notes,
-      rating: rating || 0
+      rating: rating || 0,
+      completed: true
     };
     
     updateAppState({

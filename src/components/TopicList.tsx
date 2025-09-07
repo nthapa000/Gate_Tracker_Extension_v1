@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { CheckCircle, Circle, Search, Filter, RotateCcw } from 'lucide-react';
-import { Subject, Topic } from '../types';
+import { CheckCircle, Circle, Search, RotateCcw } from 'lucide-react';
+import { Subject } from '../types';
 
 interface TopicListProps {
   subjects: Subject[];

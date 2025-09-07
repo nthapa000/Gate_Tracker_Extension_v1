@@ -40,7 +40,10 @@ const Goals: React.FC<GoalsProps> = ({ goals, updateAppState }) => {
       unit: formData.unit,
       deadline: formData.deadline ? new Date(formData.deadline) : undefined,
       completed: false,
-      createdAt: new Date()
+      createdAt: new Date(),
+      targetDate: formData.deadline ? new Date(formData.deadline) : new Date(),
+      priority: 'Medium',
+      category: 'General'
     };
 
     updateAppState({
@@ -61,11 +64,11 @@ const Goals: React.FC<GoalsProps> = ({ goals, updateAppState }) => {
   const updateGoalProgress = (goalId: string, increment: number) => {
     const updatedGoals = goals.map(goal => {
       if (goal.id === goalId) {
-        const newValue = Math.min(goal.currentValue + increment, goal.targetValue);
+        const newValue = Math.min((goal.currentValue || 0) + increment, goal.targetValue || 0);
         return {
           ...goal,
           currentValue: newValue,
-          completed: newValue >= goal.targetValue
+          completed: newValue >= (goal.targetValue || 0)
         };
       }
       return goal;
@@ -244,7 +247,7 @@ const Goals: React.FC<GoalsProps> = ({ goals, updateAppState }) => {
                     <div className="flex items-center space-x-4 text-sm text-gray-500">
                       <div className="flex items-center space-x-1">
                         <Clock className="h-4 w-4" />
-                        <span>Created {formatDate(goal.createdAt)}</span>
+                        <span>Created {goal.createdAt ? formatDate(goal.createdAt) : 'Unknown'}</span>
                       </div>
                       {goal.deadline && (
                         <div className="flex items-center space-x-1">
@@ -258,12 +261,12 @@ const Goals: React.FC<GoalsProps> = ({ goals, updateAppState }) => {
                   <div className="flex items-center space-x-3">
                     <div className="text-right">
                       <div className="text-sm font-medium text-gray-900">
-                        {goal.currentValue}/{goal.targetValue} {goal.unit}
+                        {goal.currentValue || 0}/{goal.targetValue || 0} {goal.unit || ''}
                       </div>
                       <div className="w-24 progress-bar mt-1">
                         <div 
                           className="progress-fill bg-primary-600"
-                          style={{ width: `${(goal.currentValue / goal.targetValue) * 100}%` }}
+                          style={{ width: `${((goal.currentValue || 0) / (goal.targetValue || 1)) * 100}%` }}
                         />
                       </div>
                     </div>
@@ -304,14 +307,14 @@ const Goals: React.FC<GoalsProps> = ({ goals, updateAppState }) => {
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">{goal.title}</h3>
                       <p className="text-sm text-gray-600">
-                        Completed {formatDate(goal.createdAt)}
+                        Completed {goal.createdAt ? formatDate(goal.createdAt) : 'Unknown'}
                       </p>
                     </div>
                   </div>
                   
                   <div className="text-right">
                     <div className="text-sm font-medium text-green-600">
-                      {goal.targetValue} {goal.unit} achieved!
+                      {goal.targetValue || 0} {goal.unit || ''} achieved!
                     </div>
                   </div>
                 </div>
